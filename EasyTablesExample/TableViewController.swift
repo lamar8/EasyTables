@@ -94,6 +94,7 @@ class TableViewController: NSViewController {
             ],
             table: table,
             selectionModel: .multipleCheckbox,
+            defaultSortAscending: true,
             selectionCallback: {
                 /// Just print out something when selected
                 print("Selection changed:")

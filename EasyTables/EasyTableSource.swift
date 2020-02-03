@@ -61,6 +61,7 @@ public class EasyTableSource<Object: Equatable> {
                 table: NSTableView? = nil,
                 selectionModel: SelectionModel = .singleNative,
                 autosortByFirstColumn: Bool = true,
+                defaultSortAscending:Bool = false,
                 operationConfirmationCallback: @escaping (ConfirmationCallback, String)->() = ConfirmationAlert.ask,
                 selectionCallback: (([Object])->(Void))? = nil)
         where Objects.Iterator.Element == Object
@@ -80,7 +81,8 @@ public class EasyTableSource<Object: Equatable> {
         table.delegate = self.dataSource
         self.setupTable(columns: columns,
                         selectionModel: selectionModel,
-                        autoSort: autosortByFirstColumn)
+                        autoSort: autosortByFirstColumn,
+                        defaultAscending: defaultSortAscending)
         self.setupMenu(operations: contextMenuOperations,
                        operationConfirmationCallback: operationConfirmationCallback)
     }
@@ -102,7 +104,8 @@ extension EasyTableSource {
     fileprivate func setupTable(
         columns: [ColumnDefinition<Object>],
         selectionModel: SelectionModel,
-        autoSort: Bool)
+        autoSort: Bool,
+        defaultAscending: Bool)
     {
         let preColumns = self.table.tableColumns
         preColumns.forEach {
@@ -116,7 +119,7 @@ extension EasyTableSource {
             column.isEditable = false
             column.minWidth = cdef.width.width
             column.maxWidth = cdef.width.width * 2
-            column.sortDescriptorPrototype = NSSortDescriptor(key: cdef.identifier, ascending: false) {
+            column.sortDescriptorPrototype = NSSortDescriptor(key: cdef.identifier, ascending: defaultAscending) {
                 let value1 = cdef.value($0 as! Object)
                 let value2 = cdef.value($1 as! Object)
                 return "\(value1)".compare("\(value2)")
