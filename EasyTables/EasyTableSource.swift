@@ -52,6 +52,7 @@ public class EasyTableSource<Object: Equatable> {
     ///     will create a new one
     /// - parameter selectionModel: whether multiple rows can be selected in the table
     /// - parameter selectionCallback: callback invoked when the selection changes
+    /// - parameter defaultSortAscending: defaultSortAscending
     /// - parameter autosortByFirstColumn: if true, it will sort the table by the first
     ///     column by default
     
