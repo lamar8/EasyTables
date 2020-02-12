@@ -73,7 +73,7 @@ class TableViewController: NSViewController {
             ],
             contextMenuOperations: [
                 // Remove object from the table
-                ObjectOperation(label: "Remove", needsConfirmation: true, action: {
+                ObjectOperation(label: "Remove", needSeparator: true, needsConfirmation: true, action: {
                     [weak self] (items: [String]) -> Void in
                     guard let `self` = self else { return }
                     items.forEach {

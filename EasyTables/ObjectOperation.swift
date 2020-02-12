@@ -28,11 +28,13 @@ public struct ObjectOperation<Object> {
     public let label: String
     public let action: ([Object])->()
     public let needsConfirmation: Bool
+    public let needSeparator: Bool
     
-    public init(label: String, needsConfirmation: Bool = false, action: @escaping ([Object])->()) {
+    public init(label: String, needSeparator: Bool = false, needsConfirmation: Bool = false, action: @escaping ([Object])->()) {
         self.label = label
         self.action = action
         self.needsConfirmation = needsConfirmation
+        self.needSeparator = needSeparator
     }
 }
 
