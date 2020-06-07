@@ -126,7 +126,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         if let attributed = value as? NSAttributedString {
             field.attributedStringValue = attributed
         } else if let bool = value as? Bool {
-            field.stringValue = bool ? "✅" : "❌"
+            field.stringValue = bool ? "" : "❌"
         } else {
             field.stringValue = "\(value)"
         }
