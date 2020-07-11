@@ -94,12 +94,13 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         
         let cellIdentifier = tableColumn.identifier
         let value = column.value(entry)
-        return self.viewForValue(value, in: tableView, cellIdentifier: cellIdentifier)
+        return self.viewForValue(value, in: tableView, alignment: column.alignment, cellIdentifier: cellIdentifier)
     }
     
     /// Returns the best view to represent an item
     private func viewForValue(_ value: Any,
                               in tableView: NSTableView,
+                              alignment: NSTextAlignment,
                               cellIdentifier: NSUserInterfaceItemIdentifier
                               ) -> NSView
     {
@@ -121,6 +122,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.drawsBackground = false
             field.usesSingleLineMode = true
             field.cell?.lineBreakMode = .byClipping
+            field.cell?.alignment = alignment
             return field
             }()
         if let attributed = value as? NSAttributedString {

@@ -65,10 +65,10 @@ class TableViewController: NSViewController {
         self.tableSource = EasyTableSource(
             initialObjects: self.objects,
             columns: [
-                ColumnDefinition(name: "Word", value: { $0.boldAttributed }),
-                ColumnDefinition(name: "Length", width: .S, value: { $0.count }),
+                ColumnDefinition(name: "Word",value: { $0.boldAttributed }),
+                ColumnDefinition(name: "Length", width: .S, alignment: .right, value: { $0.count }),
                 ColumnDefinition(name: "Image", width: .S, value: { imageDirectory.image(for: $0) as Any } ),
-                ColumnDefinition(name: "Starts with C", width: .S, value: { $0.starts(with: "C") }),
+                ColumnDefinition(name: "Starts with C", width: .S, alignment: .right, value: { $0.starts(with: "C") }),
                 ColumnDefinition(name: "Control", width: .S, value: { let b = NSButton(); b.title = $0; return b })
             ],
             contextMenuOperations: [
