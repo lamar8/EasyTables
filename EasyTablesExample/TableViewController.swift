@@ -67,6 +67,7 @@ class TableViewController: NSViewController {
             columns: [
                 ColumnDefinition(name: "Word",value: { $0.boldAttributed }),
                 ColumnDefinition(name: "Length", width: .S, alignment: .right, value: { $0.count }),
+                ColumnDefinition(name: "Test", width: .L, alignment: .right, value: { ($0,NSColor.blue) }),
                 ColumnDefinition(name: "Image", width: .S, value: { imageDirectory.image(for: $0) as Any } ),
                 ColumnDefinition(name: "Starts with C", width: .S, alignment: .right, value: { $0.starts(with: "C") }),
                 ColumnDefinition(name: "Control", width: .S, value: { let b = NSButton(); b.title = $0; return b })
@@ -93,7 +94,7 @@ class TableViewController: NSViewController {
                 })
             ],
             table: table,
-            selectionModel: .multipleCheckbox,
+            selectionModel: .multipleNative,
             defaultSortAscending: true,
             selectionCallback: {
                 /// Just print out something when selected

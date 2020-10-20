@@ -129,6 +129,9 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.attributedStringValue = attributed
         } else if let bool = value as? Bool {
             field.stringValue = bool ? "" : "❌"
+        } else if let group = value as? (Any,NSColor) {
+            field.stringValue = "\(group.0)"
+            field.textColor = group.1
         } else {
             field.stringValue = "\(value)"
         }
