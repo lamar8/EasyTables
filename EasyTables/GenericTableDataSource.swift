@@ -132,6 +132,15 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         } else if let group = value as? (Any,NSColor) {
             field.stringValue = "\(group.0)"
             field.textColor = group.1
+        } else if let double = value as? Double {
+            if double == 0 {
+                field.stringValue = "-"
+            }else if double < 0 {
+                field.stringValue = "\(value)"
+                field.textColor = .red
+            }else{
+                field.stringValue = "\(value)"
+            }
         } else if let zero = value as? (Double,NSColor,String) {
             if zero.0 == 0 {
                 field.stringValue = zero.2
