@@ -61,7 +61,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
          table: NSTableView,
          selectionModel: SelectionModel,
          selectionCallback: @escaping ([Object])->(Void) = { _ in }
-        ) {
+    ) {
         self.filter = nil
         self.table = table
         self.selectionModel = selectionModel
@@ -83,13 +83,13 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     }
     
     public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-
+        
         guard
             let entry = self.value(row: row),
             let tableColumn = tableColumn,
             let column = columns[tableColumn.identifier.rawValue]
-            else {
-                return nil
+        else {
+            return nil
         }
         
         let cellIdentifier = tableColumn.identifier
@@ -102,7 +102,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
                               in tableView: NSTableView,
                               alignment: NSTextAlignment,
                               cellIdentifier: NSUserInterfaceItemIdentifier
-                              ) -> NSView
+    ) -> NSView
     {
         // TODO: use reusable views that are registered on the table with an identifier.
         // I could not get them to register when in a framework though, it fails to find the xib
@@ -124,7 +124,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.cell?.lineBreakMode = .byClipping
             field.cell?.alignment = alignment
             return field
-            }()
+        }()
         if let attributed = value as? NSAttributedString {
             field.attributedStringValue = attributed
         } else if let bool = value as? Bool {
@@ -134,7 +134,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.textColor = group.1
         } else if let double = value as? Double {
             field.stringValue = double == 0 ? "-" : "\(value)"
-            field.textColor = double < 0 ? .red : .black
+            field.textColor = double < 0 ? .red : .controlTextColor
         } else if let zero = value as? (Double,NSColor,String) {
             field.stringValue = zero.0 == 0 ? zero.2 : "\(zero.0)"
             field.textColor = zero.1
@@ -193,8 +193,8 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         let sortingFunctions = self.table.sortDescriptors.compactMap {
             descriptor -> ((Object, Object)->ComparisonResult)? in
             guard let title = descriptor.key,
-                let column = self.columns[title.lowercased()]
-                else { return nil }
+                  let column = self.columns[title.lowercased()]
+            else { return nil }
             let ascending = descriptor.ascending
             return { v1, v2 -> ComparisonResult in
                 let comparison = column.comparison(v1, v2)
@@ -219,7 +219,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             return true
         }
     }
-        
+    
     /// Select the item, if present. This causes a linear scan of the table (`O(n)`).
     public func select(item: Object, extendSelection: Bool = false) {
         guard let index = self.sortedObjects.firstIndex(where: { $0 == item }) else { return }
@@ -229,7 +229,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     /// Select the items, if present. 
     /// This causes a linear scan of the table for each element in the sequence (`O(n*m)`).
     public func select<SEQUENCE: Sequence>(items: SEQUENCE, extendSelection: Bool = false)
-        where SEQUENCE.Iterator.Element == Object
+    where SEQUENCE.Iterator.Element == Object
     {
         if self.selectionModel.requiresManualSelectionTracking {
             if !extendSelection {
