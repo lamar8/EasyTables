@@ -89,6 +89,10 @@ private func bestEffortComparison(lhs: Any, rhs: Any) -> ComparisonResult {
         return n1.compare(n2)
     case (let s1 as String, let s2 as String):
         return s1.compare(s2)
+    case (let g1 as (NSNumber,NSColor), let g2 as (NSNumber,NSColor)):
+        return g1.0.compare(g2.0)
+    case (let g1 as (NSNumber,NSColor,String), let g2 as (NSNumber,NSColor,String)):
+        return g1.0.compare(g2.0)
     default:
         return "\(lhs)".compare("\(rhs)")
     }
