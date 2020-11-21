@@ -59,6 +59,7 @@ public class EasyTableSource<Object: Equatable> {
     public init<Objects: Collection>(initialObjects: Objects,
                 columns: [ColumnDefinition<Object>],
                 contextMenuOperations: [ObjectOperation<Object>],
+                rowHeight: CGFloat = 18.0,
                 table: NSTableView? = nil,
                 selectionModel: SelectionModel = .singleNative,
                 autosortByFirstColumn: Bool = true,
@@ -72,6 +73,7 @@ public class EasyTableSource<Object: Equatable> {
         self.dataSource = GenericTableDataSource(
             initialObjects: Array(initialObjects),
             columns: columns,
+            rowHeight: rowHeight,
             contextMenuOperations: contextMenuOperations,
             table: table,
             selectionModel: selectionModel,

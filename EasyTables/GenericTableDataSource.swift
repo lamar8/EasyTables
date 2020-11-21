@@ -36,6 +36,9 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     /// Columns in the table
     let columns: [String: ColumnDefinition<Object>]
     
+    /// rowHeight in the table
+    let rowHeight: CGFloat
+    
     /// Called when the selection changes
     let selectionCallback: ([Object])->(Void)
     
@@ -57,6 +60,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     
     init(initialObjects: [Object],
          columns: [ColumnDefinition<Object>],
+         rowHeight: CGFloat,
          contextMenuOperations: [ObjectOperation<Object>] = [],
          table: NSTableView,
          selectionModel: SelectionModel,
@@ -65,6 +69,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         self.filter = nil
         self.table = table
         self.selectionModel = selectionModel
+        self.rowHeight = rowHeight
         self.columns = Dictionary(
             columns.map { ($0.identifier, $0) },
             uniquingKeysWith: { a, b in a })
@@ -148,6 +153,9 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     public func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         self.resortItems()
         self.table.reloadData()
+    }
+    public func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return rowHeight
     }
     
     public func tableViewSelectionDidChange(_ notification: Notification) {
